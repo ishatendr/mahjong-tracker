@@ -298,7 +298,7 @@ function GameInput({ draft, setDraft, roster, setRoster, onSave, onCancel, isEdi
   const resolvedChips = resolveRow(draft.chips, n);
   const chipsFull = resolvedChips.values;
 
-  const settle = totals.map((t, i) => t * (Number(draft.rate) || 0) / 1000 + chipsFull[i] * (Number(draft.chipValue) || 0));
+  const settle = totals.map((t, i) => t * (Number(draft.rate) || 0) + chipsFull[i] * (Number(draft.chipValue) || 0));
   const babaShare = (Number(draft.baba) || 0) / n;
   const settleFull = settle.map((s) => s - babaShare);
 
@@ -509,7 +509,7 @@ function Stats({ games, roster }) {
     const n = g.playerCount;
     const totals = Array(n).fill(0).map((_, p) => sum(g.rounds.map((r) => Number(r.scores[p]) || 0)));
     const chipsFull = g.chips.map((v) => Number(v) || 0);
-    const settle = totals.map((t, i) => t * (Number(g.rate) || 0) / 1000 + chipsFull[i] * (Number(g.chipValue) || 0) - (Number(g.baba) || 0) / n);
+    const settle = totals.map((t, i) => t * (Number(g.rate) || 0) + chipsFull[i] * (Number(g.chipValue) || 0) - (Number(g.baba) || 0) / n);
 
     g.players.forEach((name, i) => {
       if (!totalsByPlayer[name]) totalsByPlayer[name] = { games: 0, score: 0, money: 0 };
@@ -598,7 +598,7 @@ const S = {
   scoreRow: { display: "grid", gridTemplateColumns: "24px 20px repeat(4, 1fr)", alignItems: "center", padding: "8px 8px", borderBottom: "1px solid #f0f0ed", gap: 4 },
   removeBtn: { background: "none", border: "none", color: "#bbb", padding: 2, cursor: "pointer" },
   roundLabel: { fontSize: 12, color: "#aaa", textAlign: "center" },
-  scoreInput: { width: "100%", minWidth: 0, boxSizing: "border-box", border: "none", borderBottom: "1px solid #eee", textAlign: "center", fontSize: 17, fontWeight: 700, padding: "6px 0", background: "transparent" },
+  scoreInput: { width: "100%", minWidth: 0, boxSizing: "border-box", border: "none", borderBottom: "1px solid #eee", textAlign: "center", fontSize: 14, fontWeight: 700, padding: "6px 0", background: "transparent" },
   scoreInputAuto: { borderBottom: "1px dashed #bbb", background: "#fafbf8" },
   scoreCellAuto: { textAlign: "center", fontSize: 17, fontWeight: 700, opacity: 0.75 },
   addRoundBtn: { width: "100%", background: "#1f7a4d", color: "#fff", border: "none", borderRadius: 10, padding: "13px 0", fontSize: 15, fontWeight: 700, margin: "12px 0 18px", display: "flex", alignItems: "center", justifyContent: "center" },
@@ -606,10 +606,10 @@ const S = {
   summaryRowBase: { display: "grid", gridTemplateColumns: "44px repeat(4, 1fr)", alignItems: "center", padding: "10px 0", borderBottom: "1px solid #f0f0ed" },
   summaryRowEmph: { borderBottom: "none" },
   summaryLabel: { fontSize: 13, color: "#888", fontWeight: 700 },
-  summaryCell: { textAlign: "center", fontSize: 15, fontWeight: 700 },
-  summaryCellAuto: { textAlign: "center", fontSize: 15, fontWeight: 700, opacity: 0.75 },
+  summaryCell: { textAlign: "center", fontSize: 13, fontWeight: 700 },
+  summaryCellAuto: { textAlign: "center", fontSize: 13, fontWeight: 700, opacity: 0.75 },
   chipRow: { display: "grid", gridTemplateColumns: "44px repeat(4, 1fr)", alignItems: "center", padding: "8px 0", borderBottom: "1px solid #f0f0ed" },
-  chipInput: { width: "100%", border: "none", borderBottom: "1px solid #eee", textAlign: "center", fontSize: 15, fontWeight: 700, padding: "4px 0", background: "transparent", boxSizing: "border-box" },
+  chipInput: { width: "100%", border: "none", borderBottom: "1px solid #eee", textAlign: "center", fontSize: 13, fontWeight: 700, padding: "4px 0", background: "transparent", boxSizing: "border-box" },
   errorBox: { color: "#d64545", fontSize: 13, marginTop: 12, textAlign: "center" },
   actionRow: { display: "flex", gap: 10, marginTop: 18 },
   saveBtn: { flex: 1, background: "#1f7a4d", color: "#fff", border: "none", borderRadius: 10, padding: "14px 0", fontSize: 15, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" },
